@@ -4,7 +4,7 @@
     {
         public int CustomerId { get; set; }
         public string CustomerName { get; set; }
-        public DateOnly LastOrderDate { get; set; }
-        public DateOnly NextPredictedOrderDate { get; set; }
+        public DateTime LastOrderDate { get; set; }
+        public DateTime NextPredictedOrderDate { get; set; }
     }
 }
