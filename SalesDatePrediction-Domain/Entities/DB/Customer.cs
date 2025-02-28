@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SalesDatePrediction_Domain.Entities.DB
 {
-    [Table("Sales.Customers")]
+    [Table("Customers", Schema ="Sales")]
     public class Customer
     {
         [Key]

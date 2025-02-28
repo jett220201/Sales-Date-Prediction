@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SalesDatePrediction_Domain.Entities.DB
 {
-    [Table("Sales.Orders")]
+    [Table("Orders", Schema = "Sales")]
     public class Order
     {
         [Key]
@@ -11,9 +11,9 @@ namespace SalesDatePrediction_Domain.Entities.DB
         public int Id { get; set; }
         public int? CustomerId { get; set; }
         public int EmployeeId { get; set; }
-        public DateOnly OrderDate { get; set; }
-        public DateOnly RequiredDate { get; set; }
-        public DateOnly? ShippedDate { get; set; }
+        public DateTime OrderDate { get; set; }
+        public DateTime RequiredDate { get; set; }
+        public DateTime? ShippedDate { get; set; }
         public int ShipperId { get; set; }
         public decimal Freight { get; set; }
         public string ShipName { get; set; }

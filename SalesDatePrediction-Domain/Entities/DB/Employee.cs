@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SalesDatePrediction_Domain.Entities.DB
 {
-    [Table("HR.Employees")]
+    [Table("Employees", Schema = "HR")]
     public class Employee
     {
         [Key]
@@ -13,8 +13,8 @@ namespace SalesDatePrediction_Domain.Entities.DB
         public string LastName { get; set; }
         public string Title { get; set; }
         public string TitleCourtesy { get; set; }
-        public DateOnly BirthDate { get; set; }
-        public DateOnly HireDate { get; set; }
+        public DateTime BirthDate { get; set; }
+        public DateTime HireDate { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
         public string? Region { get; set; }
