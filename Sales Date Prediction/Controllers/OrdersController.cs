@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SalesDatePrediction_Application.Contracts;
 using SalesDatePrediction_Application.Services;
 using SalesDatePrediction_Domain.Entities.DB;
 
@@ -32,11 +33,11 @@ namespace Sales_Date_Prediction.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> CreateOrder(Order order, OrderDetail orderDetail)
+        public async Task<JsonResult> CreateOrder([FromBody]CreateOrderDto request)
         {
-            Order orderDB = await _orderService.AddReturn(order);
-            orderDetail.OrderId = orderDB.Id;
-            await _orderDetailService.AddReturn(orderDetail);
+            Order orderDB = await _orderService.AddReturn(request.Order);
+            request.OrderDetail.OrderId = orderDB.Id;
+            await _orderDetailService.AddReturn(request.OrderDetail);
             return Json(new
             {
                 Orderid = orderDB.Id,
