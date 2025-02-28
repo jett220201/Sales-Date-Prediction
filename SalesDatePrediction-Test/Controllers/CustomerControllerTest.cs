@@ -26,8 +26,8 @@ namespace SalesDatePrediction_Test.Controllers
             // Arrange
             var testCustomers = new List<CustomerModel>
             {
-                new CustomerModel { CustomerId = 1, CustomerName = "Customer A", LastOrderDate = new DateOnly(2025, 1, 12), NextPredictedOrderDate = new DateOnly(2025, 2, 12) },
-                new CustomerModel { CustomerId = 2, CustomerName = "Customer B", LastOrderDate = new DateOnly(2025, 1, 15), NextPredictedOrderDate = new DateOnly(2025, 2, 1) }
+                new CustomerModel { CustomerId = 1, CustomerName = "Customer A", LastOrderDate = new DateTime(2025, 1, 12), NextPredictedOrderDate = new DateTime(2025, 2, 12) },
+                new CustomerModel { CustomerId = 2, CustomerName = "Customer B", LastOrderDate = new DateTime(2025, 1, 15), NextPredictedOrderDate = new DateTime(2025, 2, 1) }
             };
 
             _mockCustomersRepository.Setup(s => s.GetPredictedOrders()).ReturnsAsync(testCustomers);
@@ -44,13 +44,13 @@ namespace SalesDatePrediction_Test.Controllers
 
             Assert.Equal(1, list[0].GetType().GetProperty("CustomerId").GetValue(list[0]));
             Assert.Equal("Customer A", list[0].GetType().GetProperty("CustomerName").GetValue(list[0]));
-            Assert.Equal(new DateOnly(2025, 1, 12), list[0].GetType().GetProperty("LastOrderDate").GetValue(list[0]));
-            Assert.Equal(new DateOnly(2025, 2, 12), list[0].GetType().GetProperty("NextPredictedOrderDate").GetValue(list[0]));
+            Assert.Equal(new DateTime(2025, 1, 12), list[0].GetType().GetProperty("LastOrderDate").GetValue(list[0]));
+            Assert.Equal(new DateTime(2025, 2, 12), list[0].GetType().GetProperty("NextPredictedOrderDate").GetValue(list[0]));
 
             Assert.Equal(2, list[1].GetType().GetProperty("CustomerId").GetValue(list[1]));
             Assert.Equal("Customer B", list[1].GetType().GetProperty("CustomerName").GetValue(list[1]));
-            Assert.Equal(new DateOnly(2025, 1, 15), list[1].GetType().GetProperty("LastOrderDate").GetValue(list[1]));
-            Assert.Equal(new DateOnly(2025, 2, 1), list[1].GetType().GetProperty("NextPredictedOrderDate").GetValue(list[1]));
+            Assert.Equal(new DateTime(2025, 1, 15), list[1].GetType().GetProperty("LastOrderDate").GetValue(list[1]));
+            Assert.Equal(new DateTime(2025, 2, 1), list[1].GetType().GetProperty("NextPredictedOrderDate").GetValue(list[1]));
         }
 
         [Fact]
@@ -60,8 +60,8 @@ namespace SalesDatePrediction_Test.Controllers
             var customerName = "Customer A";
             var testCustomers = new List<CustomerModel>
             {
-                new CustomerModel { CustomerId = 1, CustomerName = "Customer A", LastOrderDate = new DateOnly(2025, 1, 12), NextPredictedOrderDate = new DateOnly(2025, 2, 12) },
-                new CustomerModel { CustomerId = 2, CustomerName = "Customer B", LastOrderDate = new DateOnly(2025, 1, 15), NextPredictedOrderDate = new DateOnly(2025, 2, 1) }
+                new CustomerModel { CustomerId = 1, CustomerName = "Customer A", LastOrderDate = new DateTime(2025, 1, 12), NextPredictedOrderDate = new DateTime(2025, 2, 12) },
+                new CustomerModel { CustomerId = 2, CustomerName = "Customer B", LastOrderDate = new DateTime(2025, 1, 15), NextPredictedOrderDate = new DateTime(2025, 2, 1) }
             };
 
             _mockCustomersRepository.Setup(s => s.GetPredictedOrders()).ReturnsAsync(testCustomers);
@@ -78,8 +78,8 @@ namespace SalesDatePrediction_Test.Controllers
 
             Assert.Equal(1, list[0].GetType().GetProperty("CustomerId").GetValue(list[0]));
             Assert.Equal("Customer A", list[0].GetType().GetProperty("CustomerName").GetValue(list[0]));
-            Assert.Equal(new DateOnly(2025, 1, 12), list[0].GetType().GetProperty("LastOrderDate").GetValue(list[0]));
-            Assert.Equal(new DateOnly(2025, 2, 12), list[0].GetType().GetProperty("NextPredictedOrderDate").GetValue(list[0]));
+            Assert.Equal(new DateTime(2025, 1, 12), list[0].GetType().GetProperty("LastOrderDate").GetValue(list[0]));
+            Assert.Equal(new DateTime(2025, 2, 12), list[0].GetType().GetProperty("NextPredictedOrderDate").GetValue(list[0]));
         }
     }
 }
