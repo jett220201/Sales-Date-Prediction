@@ -17,19 +17,19 @@ namespace SalesDatePrediction_Infraestructure.Repository
         public async Task<List<CustomerModel>> GetPredictedOrders()
         {
             var context = await _contextFactory.CreateDbContextAsync();
-            return await context.Customers.Include(x => x.Orders)
-                .Select(x => new CustomerModel
+            var customers = await context.Customers.Include(x => x.Orders).ToListAsync();
+            return customers.Select(x => new CustomerModel
                 {
                     CustomerId = x.Id,
                     CustomerName = x.CompanyName,
-                    LastOrderDate = x.Orders.OrderByDescending(x => x.OrderDate).FirstOrDefault().OrderDate,
-                    NextPredictedOrderDate = GetPredictedDate(x, GetDateAverage((List<Order>)x.Orders))
-                }).ToListAsync();
+                    LastOrderDate = x.Orders.Any() ? x.Orders.OrderByDescending(x => x.OrderDate).FirstOrDefault().OrderDate : DateTime.MinValue,
+                    NextPredictedOrderDate = GetPredictedDate(x, GetDateAverage(x.Orders.ToList()))
+                }).ToList();
         }
 
         private int GetDateAverage(List<Order> orders)
         {
-            if(!orders.Any()) return 0;
+            if(orders.Count <= 1) return 0;
             return (int)orders.OrderBy(x => x.OrderDate).Select((order, index) =>
             {
                 if (index == 0)
@@ -38,17 +38,17 @@ namespace SalesDatePrediction_Infraestructure.Repository
                 }
                 else
                 {
-                    return (order.OrderDate.ToDateTime(TimeOnly.MinValue) - orders[index - 1].OrderDate.ToDateTime(TimeOnly.MinValue)).TotalDays;
+                    return (order.OrderDate - orders[index - 1].OrderDate).TotalDays;
                 }
             })
             .Where(x => x.HasValue)
             .Average();
         }
 
-        private DateOnly GetPredictedDate(Customer customer, int average)
+        private DateTime GetPredictedDate(Customer customer, int average)
         {
-            if (customer == null) return DateOnly.MinValue;
-            else if(!customer.Orders.Any()) return DateOnly.MinValue;
+            if (customer == null) return DateTime.MinValue;
+            else if(!customer.Orders.Any()) return DateTime.MinValue;
             else return customer.Orders.OrderByDescending(x => x.OrderDate).FirstOrDefault().OrderDate.AddDays(average);
         }
     }
