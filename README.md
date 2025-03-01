@@ -7,6 +7,7 @@ of new purchase orders.
 ## 🚀 Technologies Used
 - **.NET 8**
 - **Entity Framework Core**
+- **X-Unit**
 - **SQL Server**
 - **Swagger for Documentation**
 
@@ -130,6 +131,18 @@ dotnet restore
 dotnet run
 ```
 8. Open Swagger in http://localhost:{port}/swagger
+
+## 🐞 Testing
+This project contains tests for each controller using X-Unit and Mock. To run all the tests by console you can use the following command:
+```sh
+dotnet test
+```
+But I recommend running the tests through the interface:
+1. Open Visual Studio and load the solution.
+2. Go to the menu Test > Run All Tests.
+3. You can also open the Test Explorer window (Ctrl + E, T) and click on Run All.
+
+It is also possible to enter any test file and above the method name there is a play button ▶️.
 
 ## ⚙️ API architecture
 This project follows Clean Architecture principles, dividing the application into well-defined layers:
