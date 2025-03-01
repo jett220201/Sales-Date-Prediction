@@ -2,7 +2,16 @@ using Sales_Date_Prediction.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+    builder =>
+    {
+        builder.WithOrigins("FrotendUrl")
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
