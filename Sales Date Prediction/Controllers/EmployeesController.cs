@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SalesDatePrediction_Application.Services;
 using SalesDatePrediction_Domain.Entities.DB;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Sales_Date_Prediction.Controllers
 {
@@ -15,14 +16,24 @@ namespace Sales_Date_Prediction.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> GetAll()
+        [SwaggerOperation(Summary = "Get all employees", Description = "Retrieve a list of all employees with ID and FullName")]
+        [SwaggerResponse(200, "Returns a list of all employees", typeof(List<Employee>))]
+        [SwaggerResponse(500, "Internal server error")]
+        public async Task<IActionResult> GetAll()
         {
-            List<Employee> employees = await _employeeService.GetEmployees();
-            return Json(employees.Select(x => new
+            try
             {
-                Empid = x.Id,
-                FullName = $"{x.FirstName} {x.LastName}"
-            }));
+                List<Employee> employees = await _employeeService.GetEmployees();
+                return Ok(employees.Select(x => new
+                {
+                    Empid = x.Id,
+                    FullName = $"{x.FirstName} {x.LastName}"
+                }));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
     }
 }

@@ -20,7 +20,16 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new()
+    {
+        Title = "Sales Date Prediction API",
+        Version = "v1",
+        Description = "API to manage customers, orders, products and predict next orders."
+    });
+    c.EnableAnnotations();
+});
 
 builder.Services.RegisterServices();
 builder.Services.RegisterDataSource(builder.Configuration);
